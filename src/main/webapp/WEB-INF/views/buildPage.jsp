@@ -7,11 +7,11 @@
     
     <div class="col-12 col-md-6">
 
-        <form method="post" action="http://localhost:8084/s2m3_lego/build/" accept-charset="ISO-8859-1">
+        <form method="post" action="${baseUrl}build/" accept-charset="ISO-8859-1">
 
             <input type="hidden" name="action" value="buildHouse">
 
-            <label for="name" class="cols-sm-2 control-label">Height:</label>
+            <label for="height">Height:</label>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <div class="input-group-text"><i class="far fa-building" aria-hidden="true"></i></div>
@@ -44,6 +44,7 @@
     
     <div class="col-12 col-md-6">
         ${houseDetails}
+        ${houseConfirm}
     </div>
             
 </div>

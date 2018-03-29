@@ -4,13 +4,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
-import actions.Action;
-import actions.BuildHouseAction;
-import actions.UnknownAction;
+import actions.*;
+import data.OrderMapper;
+import logic.User;
 
 public class UrlControl {
 
     private HashMap<String, String> pages;
+    
+    private HashMap<String, String> allContent;
 
     private final ArrayList<String> parts;
 
@@ -21,6 +23,7 @@ public class UrlControl {
         this.request = request;
 
         parts = new ArrayList<>(Arrays.asList(request.getRequestURI().split("/")));
+
         parts.remove(0);
         parts.remove(0);
     }
@@ -45,7 +48,14 @@ public class UrlControl {
 
         String page = (parts.size() < 1) ? "" : parts.get(0);
 
-        return pages.getOrDefault(page, "404");
+        page = pages.getOrDefault(page, "404");
+
+        if ((!page.equals("index") || !page.equals("404")) && request.getSession().getAttribute("user") == null) {
+
+            return "index";
+        }
+
+        return page;
 
     }
 
@@ -56,7 +66,7 @@ public class UrlControl {
         pages.put("register", "index");
         pages.put("login", "index");
         pages.put("home", "index");
-        pages.put("test", "found");
+        pages.put("order", "orders");
         pages.put("build", "buildPage");
     }
 
@@ -66,9 +76,16 @@ public class UrlControl {
 
             return new BuildHouseAction();
 
-        } else {
-            return new UnknownAction();
         }
+        
+        if (getPage().equals("orders") && parts.size() > 1) {
+
+            return new OrderPageAction();
+            
+
+        }
+
+        return new UnknownAction();
 
     }
 
@@ -99,6 +116,16 @@ public class UrlControl {
             }
         }
         return true;
+    }
+
+    public String getContent() throws UserException {
+        
+        if (getPage().equals("orders")){
+            User user = (User)request.getSession().getAttribute("user");
+            return Render.generateOrders(OrderMapper.getOrders(user.getId()));
+       }
+        
+        return "";
     }
 
 }

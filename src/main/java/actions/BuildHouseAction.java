@@ -5,7 +5,6 @@ import utilities.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import logic.House;
-import sun.java2d.pipe.RenderBuffer;
 
 public class BuildHouseAction extends Action{
 
@@ -41,7 +40,17 @@ public class BuildHouseAction extends Action{
         House h = new House();
         h.build(width, height, depth);
         
+        //confirm order btn
+        Form form = new Form();
+        form.addHidden("action", "insertOrder");
+        form.addHidden("height", Integer.toString(height));
+        form.addHidden("width", Integer.toString(width));
+        form.addHidden("depth", Integer.toString(depth));
+        form.addButton("Confirm order");
+        request.setAttribute("houseConfirm", form.getForm());
+        
         request.setAttribute("houseDetails", h.render());
+        
         
         return "buildPage";
         

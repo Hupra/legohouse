@@ -158,9 +158,11 @@
     </head>
     <body>
         <nav>
-            <a href="http://localhost:8084/s2m3_lego/">home</a>
-            <a href="http://localhost:8084/s2m3_lego/build">build</a>
-            <a href="http://localhost:8084/s2m3_lego/build/10/10/10">build 10x10x10</a>
+            <a href="${baseUrl}">home</a>
+            <a href="${baseUrl}build">build</a>
+            <a href="${baseUrl}build/10/10/10">build 10x10x10</a>
+            <a href="${baseUrl}order">order</a>
+            
         </nav>
         <div class="container">
         

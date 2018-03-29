@@ -39,6 +39,7 @@ public abstract class Action
         actions = new HashMap<>();
 
         actions.put("login", new LoginAction());
+        actions.put("insertOrder", new newOrderAction());
         actions.put("register", new RegisterAction());
         actions.put("buildHouse", new BuildHouseAction());
         actions.put("massdestruction", new UnknownAction());

@@ -9,7 +9,7 @@ public class DBConnector {
     private static final String IP = "159.89.101.186";
     private static final String PORT = "3306";
     private static final String DATABASE = "lego";
-    private static final String USERNAME = "daniel";
+    private static final String USERNAME = "lego";
     private static final String PASSWORD = "1234";
 
     private static final String URL = "jdbc:mysql://" + IP + ":" + PORT + "/" + DATABASE + "?autoReconnect=true&useSSL=false";
