@@ -162,6 +162,7 @@
             <a href="${baseUrl}build">build</a>
             <a href="${baseUrl}build/10/10/10">build 10x10x10</a>
             <a href="${baseUrl}order">order</a>
+            <a href="${baseUrl}admin">admin</a>
             
         </nav>
         <div class="container">
