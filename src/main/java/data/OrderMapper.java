@@ -14,6 +14,31 @@ import logic.User;
 
 public class OrderMapper {
 
+    
+    public static void setReady(int id) throws UserException{
+        
+        try {
+            
+            Connection con = DBConnector.connection();
+            String SQL = ""
+                    + "UPDATE orders "
+                    + "SET ready = 1 "
+                    + "WHERE id = ?";
+            
+            PreparedStatement ps = con.prepareStatement(SQL);
+            
+            ps.setInt(1, id);
+            
+            ps.execute();
+            
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new UserException(e.getMessage());
+        }
+        
+        
+    }
+    
+    
     public static int newOrder(House h, User u) throws UserException {
         try {
             Connection con = DBConnector.connection();
@@ -46,6 +71,38 @@ public class OrderMapper {
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setInt(1, id);
 
+            ResultSet rs = ps.executeQuery();
+            
+            ArrayList<Order> orders = new ArrayList<>();
+            
+            boolean ready = false;
+            
+            while(rs.next()){
+                
+                if(rs.getInt("ready") == 1){
+                    ready = true;
+                }else{
+                    ready = false;
+                }
+                
+                orders.add(new Order(rs.getInt("id"), rs.getInt("height"), rs.getInt("width"), rs.getInt("depth"), ready));
+                
+            }
+            
+            return orders;
+
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new UserException(ex.getMessage());
+        }
+    }
+    
+    public static ArrayList<Order> getAllOrders() throws UserException {
+        try {
+            Connection con = DBConnector.connection();
+            String SQL = "SELECT * FROM orders";
+
+            PreparedStatement ps = con.prepareStatement(SQL);
+ 
             ResultSet rs = ps.executeQuery();
             
             ArrayList<Order> orders = new ArrayList<>();

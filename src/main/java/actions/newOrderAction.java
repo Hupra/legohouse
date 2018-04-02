@@ -38,7 +38,7 @@ public class newOrderAction extends Action {
       
         String redirectTo = "redirect";
         
-        return redirectTo + "test/" + Integer.toString(orderId);
+        return redirectTo + "order/" + Integer.toString(orderId);
     }
 
 }

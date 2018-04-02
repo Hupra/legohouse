@@ -43,6 +43,7 @@ public abstract class Action
         actions.put("register", new RegisterAction());
         actions.put("buildHouse", new BuildHouseAction());
         actions.put("massdestruction", new UnknownAction());
+        actions.put("readyOrder", new ReadyOrderAction());
         
     }
 

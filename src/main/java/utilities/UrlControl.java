@@ -11,7 +11,7 @@ import logic.User;
 public class UrlControl {
 
     private HashMap<String, String> pages;
-    
+
     private HashMap<String, String> allContent;
 
     private final ArrayList<String> parts;
@@ -54,6 +54,11 @@ public class UrlControl {
 
             return "index";
         }
+        
+        if (page.equals("adminPage") && !request.getSession().getAttribute("role").equals("admin")) {
+
+            return "index";
+        }
 
         return page;
 
@@ -68,6 +73,8 @@ public class UrlControl {
         pages.put("home", "index");
         pages.put("order", "orders");
         pages.put("build", "buildPage");
+        
+        pages.put("admin", "adminPage");
     }
 
     public Action getAction() {
@@ -77,11 +84,10 @@ public class UrlControl {
             return new BuildHouseAction();
 
         }
-        
+
         if (getPage().equals("orders") && parts.size() > 1) {
 
             return new OrderPageAction();
-            
 
         }
 
@@ -119,13 +125,18 @@ public class UrlControl {
     }
 
     public String getContent() throws UserException {
-        
-        if (getPage().equals("orders")){
-            User user = (User)request.getSession().getAttribute("user");
+
+        if (getPage().equals("orders")) {
+            User user = (User) request.getSession().getAttribute("user");
             return Render.generateOrders(OrderMapper.getOrders(user.getId()));
-       }
+        }
+        
+        else if (getPage().equals("adminPage") && request.getSession().getAttribute("role").equals("admin")) {
+
+            return Render.generateOrdersWithButtons(OrderMapper.getAllOrders());
+        }
         
         return "";
-    }
 
+    }
 }

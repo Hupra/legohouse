@@ -23,12 +23,14 @@
                 <div class="input-group-prepend">
                     <div class="input-group-text"><i class="fas fa-key" aria-hidden="true"></i></div>
                 </div>
-                <input type="password" class="form-control" name="pw" id="pw"  placeholder="Password""/>
+                <input type="password" class="form-control" name="pw" id="pw"  placeholder="Password"/>
             </div>
 
             <button class="btn btn-primary" type="submit">Sign in</button>
 
         </form>
+            
+        <br><p> user: a / pw: 123 </p>
 
     </div>
 

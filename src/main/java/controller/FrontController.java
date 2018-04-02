@@ -93,14 +93,18 @@ public class FrontController extends HttpServlet {
         
         prepareSite(request);
         
-        
-        
+
         try {
             // get desired action from request (get or post)
             Action action = Action.getAction(request);
+            
+            
 
             // execute action to get the view
             String view = action.getView(request, response);
+            
+            prepareSite(request);
+            
             request.setAttribute("test", "PostMalonie!");
 
             //check if redirect
